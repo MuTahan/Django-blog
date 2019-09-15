@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create Method for accepting data from the User
 
+
 def register(request):
 
     # validate whether the request is POST request or NOT!
@@ -20,11 +21,12 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-    return render(request , 'users/register.html', {'form':form})
+    return render(request, 'users/register.html', {'form': form})
+
 
 @login_required
 def profile(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
@@ -36,8 +38,8 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
-        'u_form':u_form,
-        'p_form':p_form
+        'u_form': u_form,
+        'p_form': p_form
 
     }
-    return render(request, 'users/profile.html',context)
+    return render(request, 'users/profile.html', context)
